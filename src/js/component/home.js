@@ -7,12 +7,12 @@ import rigoImage from "../../img/rigo-baby.jpg";
 export class Home extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="container">
 				<div className="title">todos</div>
-				<div className="box">
+				<div className="todolist">
 					<div className="inputfield">What needs to be done?</div>
-					<div className="items">Walk the dog</div>
-					<div className="numberofitems">1 item left</div>
+					<div className="items">Make the bed</div>
+					<div className="numberOfItems">1 item left</div>
 				</div>
 			</div>
 		);
