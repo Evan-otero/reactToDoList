@@ -28,6 +28,11 @@ export class Home extends React.Component {
 		}
 	};
 
+	deleteFromList = value => {
+		let bravo = alpha.filter(value);
+		return alpha != value;
+	};
+
 	render() {
 		return (
 			<div className="container">
@@ -45,17 +50,22 @@ export class Home extends React.Component {
 					<div>
 						<ul>
 							{alpha.map((tea, parrot) => {
-								return <li key={parrot}>{tea}</li>;
+								return (
+									<li
+										onClick={this.state.deleteFromList}
+										key={parrot}>
+										{tea}
+									</li>
+								);
 							})}{" "}
 						</ul>
 					</div>
 					<div className="numberOfItems">
-						{alpha.length} item left
+						{alpha.length} items left
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
-
 let alpha = [];
