@@ -2,14 +2,28 @@ import React from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
+import { Alpha } from "./Alpha.js";
 
 //create your first component
 export class Home extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			alpha: [],
+			isLoaded: false,
 			anInput: "What needs to be done?"
 		};
+	}
+
+	compenentDidMount() {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/evan-otero")
+			.then(res => res.json())
+			.then(json => {
+				this.setState({
+					isLoaded: true,
+					alpha: json
+				});
+			});
 	}
 
 	blankState = () => {
@@ -23,14 +37,13 @@ export class Home extends React.Component {
 
 	enterState = e => {
 		if (e.key === "Enter") {
-			alpha.push(e.target.value);
+			this.state.alpha.push(e.target.value);
 			this.setState({ anInput: "" });
 		}
 	};
 
-	deleteFromList = value => {
-		let bravo = alpha.filter(value);
-		return alpha != value;
+	deleteFromList = golf => {
+		console.log("banana");
 	};
 
 	render() {
@@ -42,30 +55,23 @@ export class Home extends React.Component {
 						<input
 							type="text"
 							value={this.state.anInput}
-							onClick={this.state.blankState}
+							onClick={this.blankState}
 							onChange={this.updateState}
 							onKeyPress={this.enterState}
 						/>
 					</div>
 					<div>
 						<ul>
-							{alpha.map((tea, parrot) => {
-								return (
-									<li
-										onClick={this.state.deleteFromList}
-										key={parrot}>
-										{tea}
-									</li>
-								);
+							{this.state.alpha.map((foxtrot, golf) => {
+								return <Alpha echo={foxtrot} key={golf} />;
 							})}{" "}
 						</ul>
 					</div>
 					<div className="numberOfItems">
-						{alpha.length} items left
+						{this.state.alpha.length} items left
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
-let alpha = [];
