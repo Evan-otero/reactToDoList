@@ -36,6 +36,7 @@ body{
 .inputfield{
     border-style: groove;
     border-width: 1px;
+    display: flex;
 }
 .items{
     border-style: groove;
@@ -44,4 +45,11 @@ body{
 .numberOfItems{
      border-style: groove;
     border-width: 1px;
+}
+
+.Xbutton{
+    margin-left: auto ;
+}
+#xray{
+    display: flex;
 }

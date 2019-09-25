@@ -15,15 +15,21 @@ export class Home extends React.Component {
 		};
 	}
 
-	compenentDidMount() {
+	componentDidMount() {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/evan-otero")
-			.then(res => res.json())
-			.then(json => {
-				this.setState({
-					isLoaded: true,
-					alpha: json
-				});
+			.then(resp => {
+				if (resp.ok) {
+					return resp.json();
+				}
+			})
+			.then(data => {
+				this.setState({ alpha: data });
 			});
+
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/evan-otero", {
+			method: "PUT",
+			body: JSON.stringify([this.state.alpha])
+		});
 	}
 
 	blankState = () => {
@@ -31,19 +37,29 @@ export class Home extends React.Component {
 	};
 
 	updateState = e => {
-		console.dir(e.target);
 		this.setState({ anInput: e.target.value });
 	};
 
 	enterState = e => {
 		if (e.key === "Enter") {
-			this.state.alpha.push(e.target.value);
-			this.setState({ anInput: "" });
+			let kilo = { label: e.target.value, done: false };
+			this.state.alpha.push(kilo);
+			this.setState({
+				anInput: ""
+			});
 		}
 	};
 
 	deleteFromList = golf => {
-		console.log("banana");
+		let temp = this.state.alpha;
+		temp.splice(golf, 1);
+		this.setState({ alpha: temp });
+	};
+
+	deleteFullList = () => {
+		let temp = this.state.alpha;
+		temp.splice(0, temp.length);
+		this.setState({ alpha: temp });
 	};
 
 	render() {
@@ -59,11 +75,22 @@ export class Home extends React.Component {
 							onChange={this.updateState}
 							onKeyPress={this.enterState}
 						/>
+						<div className="Xbutton">
+							<button onClick={() => this.deleteFullList()}>
+								Delete List
+							</button>
+						</div>
 					</div>
 					<div>
 						<ul>
 							{this.state.alpha.map((foxtrot, golf) => {
-								return <Alpha echo={foxtrot} key={golf} />;
+								return (
+									<Alpha
+										echo={foxtrot.label}
+										key={golf}
+										hotel={() => this.deleteFromList(golf)}
+									/>
+								);
 							})}{" "}
 						</ul>
 					</div>
