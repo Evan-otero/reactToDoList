@@ -25,11 +25,6 @@ export class Home extends React.Component {
 			.then(data => {
 				this.setState({ alpha: data });
 			});
-
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/evan-otero", {
-			method: "PUT",
-			body: JSON.stringify([this.state.alpha])
-		});
 	}
 
 	blankState = () => {
@@ -42,11 +37,24 @@ export class Home extends React.Component {
 
 	enterState = e => {
 		if (e.key === "Enter") {
-			let kilo = { label: e.target.value, done: false };
-			this.state.alpha.push(kilo);
-			this.setState({
-				anInput: ""
+			fetch(
+				"https://assets.breatheco.de/apis/fake/todos/user/evan-otero",
+				{
+					method: "PUT",
+					body: JSON.stringify,
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			).then(res => {
+				if (res.ok) console.log("OK");
+				else console.log("No good");
 			});
+			//let kilo = { label: e.target.value, done: false };
+			//	this.state.alpha.push(kilo);
+			//	this.setState({
+			//		anInput: ""
+			//	});
 		}
 	};
 
